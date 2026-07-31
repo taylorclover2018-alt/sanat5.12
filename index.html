@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fechamento de Rotas Escolares - Curvelo & Sete Lagoas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="main-header">
+  <div class="header-content">
+    <h1>🚌 Sistema de Fechamento de Rotas Escolares</h1>
+    <p class="subtitle">Curvelo &amp; Sete Lagoas — Gestão Financeira de Transporte</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 1) PERÍODO DE FECHAMENTO -->
+  <section class="card">
+    <h2>📅 Período de Fechamento</h2>
+    <p class="info-text">Escolha um único dia ou um intervalo de datas para este fechamento. Se for apenas um dia, deixe a "Data Final" vazia.</p>
+    <div class="grid-2">
+      <div class="field">
+        <label for="dataInicial">Data Inicial</label>
+        <input type="date" id="dataInicial">
+      </div>
+      <div class="field">
+        <label for="dataFinal">Data Final (opcional)</label>
+        <input type="date" id="dataFinal">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) AUXÍLIO DISPONÍVEL -->
+  <section class="card">
+    <h2>💰 Auxílio Disponível</h2>
+    <div class="radio-group">
+      <label class="radio-option">
+        <input type="radio" name="tipoAuxilio" value="proporcional" checked>
+        <span>Auxílio em Dinheiro Proporcional</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="tipoAuxilio" value="combustivel">
+        <span>Auxílio em Combustível</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="tipoAuxilio" value="fixo">
+        <span>Auxílio Fixo por Rota</span>
+      </label>
+    </div>
+
+    <div class="grid-2" style="margin-top:20px;">
+      <div class="field">
+        <label for="auxilioTotal">Auxílio Total (R$) — Proporcional</label>
+        <input type="number" id="auxilioTotal" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label for="auxilioCombustivel">Auxílio Combustível (R$)</label>
+        <input type="number" id="auxilioCombustivel" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label for="auxilioFixoCurvelo">Auxílio Fixo Curvelo (R$)</label>
+        <input type="number" id="auxilioFixoCurvelo" step="0.01" min="0" value="0">
+      </div>
+      <div class="field">
+        <label for="auxilioFixoSeteLagoas">Auxílio Fixo Sete Lagoas (R$)</label>
+        <input type="number" id="auxilioFixoSeteLagoas" step="0.01" min="0" value="0">
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) DADOS DAS ROTAS -->
+  <section class="card">
+    <h2>🛣️ Dados das Rotas</h2>
+    <div class="grid-2 routes-grid">
+
+      <!-- ROTA CURVELO -->
+      <div class="route-column" id="routeCurvelo">
+        <h3 class="route-title">Curvelo</h3>
+
+        <div class="subsection">
+          <h4>Alunos</h4>
+          <div class="field">
+            <label>Alunos Integrais</label>
+            <input type="number" id="curvelo_alunosIntegrais" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Alunos com Desconto</label>
+            <input type="number" id="curvelo_alunosDesconto" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Descontos</h4>
+          <div class="field">
+            <label>Quantidade de Descontos Possíveis</label>
+            <input type="number" id="curvelo_descontosPossiveis" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Quantidade de Descontos Aplicados</label>
+            <input type="number" id="curvelo_descontosAplicados" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Valor de Cada Desconto (R$)</label>
+            <input type="number" id="curvelo_valorDesconto" step="0.01" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Passagens</h4>
+          <div class="field">
+            <label>Total de Passagens da Rota</label>
+            <input type="number" id="curvelo_totalPassagens" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Veículos</h4>
+          <div id="curvelo_veiculos" class="vehicles-list"></div>
+          <button type="button" class="btn btn-secondary" onclick="adicionarVeiculo('curvelo')">+ Adicionar Veículo</button>
+        </div>
+      </div>
+
+      <!-- ROTA SETE LAGOAS -->
+      <div class="route-column" id="routeSeteLagoas">
+        <h3 class="route-title">Sete Lagoas</h3>
+
+        <div class="subsection">
+          <h4>Alunos</h4>
+          <div class="field">
+            <label>Alunos Integrais</label>
+            <input type="number" id="setelagoas_alunosIntegrais" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Alunos com Desconto</label>
+            <input type="number" id="setelagoas_alunosDesconto" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Descontos</h4>
+          <div class="field">
+            <label>Quantidade de Descontos Possíveis</label>
+            <input type="number" id="setelagoas_descontosPossiveis" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Quantidade de Descontos Aplicados</label>
+            <input type="number" id="setelagoas_descontosAplicados" min="0" value="0">
+          </div>
+          <div class="field">
+            <label>Valor de Cada Desconto (R$)</label>
+            <input type="number" id="setelagoas_valorDesconto" step="0.01" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Passagens</h4>
+          <div class="field">
+            <label>Total de Passagens da Rota</label>
+            <input type="number" id="setelagoas_totalPassagens" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h4>Veículos</h4>
+          <div id="setelagoas_veiculos" class="vehicles-list"></div>
+          <button type="button" class="btn btn-secondary" onclick="adicionarVeiculo('setelagoas')">+ Adicionar Veículo</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="actions-bar">
+      <button type="button" class="btn btn-primary" onclick="calcularTudo()">🧮 Calcular Fechamento</button>
+    </div>
+  </section>
+
+  <!-- 5) TABELA FINAL -->
+  <section class="card" id="resultsSection" style="display:none;">
+    <h2>📊 Tabela Final de Resultados</h2>
+    <div class="table-wrapper">
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>Rota</th>
+            <th>Bruto</th>
+            <th>Auxílio Aplicado</th>
+            <th>Bruto Após Auxílio</th>
+            <th>Total Passagens</th>
+            <th>Alunos Integrais</th>
+            <th>Alunos c/ Desconto</th>
+            <th>Custo Médio/Unidade</th>
+          </tr>
+        </thead>
+        <tbody id="resultTableBody"></tbody>
+        <tfoot id="resultTableFoot"></tfoot>
+      </table>
+    </div>
+
+    <div class="summary-cards" id="summaryCards"></div>
+  </section>
+
+  <!-- 6) DASHBOARD -->
+  <section class="card" id="dashboardSection" style="display:none;">
+    <h2>📈 Dashboard</h2>
+    <div class="grid-2 charts-grid">
+      <div class="chart-box">
+        <h4>Bruto por Rota (Antes/Depois do Auxílio)</h4>
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h4>Distribuição do Auxílio entre Rotas</h4>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7) PDF -->
+  <section class="card" id="pdfSection" style="display:none;">
+    <h2>📄 Relatório em PDF</h2>
+    <p class="info-text">Gere um relatório completo com todos os dados, cálculos e totais deste fechamento.</p>
+    <div class="actions-bar">
+      <button type="button" class="btn btn-primary" onclick="gerarPDF()">⬇️ Gerar PDF do Fechamento</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="main-footer">
+  <p>Sistema de Fechamento de Rotas Escolares &copy; 2026 — Curvelo &amp; Sete Lagoas</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
